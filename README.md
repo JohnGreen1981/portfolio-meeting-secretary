@@ -1,38 +1,38 @@
 # Meeting Secretary
 
-Telegram bot for transcribing meetings and generating structured summaries.
+Telegram-бот для расшифровки встреч и подготовки структурированного summary.
 
-This is a sanitized portfolio version. It does not include production `.env` files, meeting recordings, private transcripts, logs, speaker names from real meetings, or VPS credentials.
+Это очищенная портфельная версия. В репозитории нет production `.env`, записей встреч, приватных стенограмм, логов, имён реальных участников и VPS-доступов.
 
-## What It Demonstrates
+## Что показывает проект
 
-- Speech-to-text workflow for long audio/video files.
-- Speaker diarization and speaker mapping.
-- Chunked summary pipeline for long transcripts.
-- Telegram Local Bot API design for files larger than the cloud Bot API limit.
-- Docker deployment and runtime verification.
-- AI-assisted development workflow: requirements, implementation via coding assistants, manual scenario checks, cleanup and documentation.
+- Сценарий speech-to-text для длинных аудио/видео.
+- Диаризацию спикеров и сопоставление спикеров с именами/ролями.
+- Пошаговую сборку summary для длинных стенограмм.
+- Архитектуру Telegram Local Bot API для файлов больше лимита cloud Bot API.
+- Сценарий деплоя через Docker / Docker Compose.
+- AI-assisted development: постановка задачи, реализация через coding assistants, ручная проверка сценариев, очистка и документация.
 
-## User Workflow
+## Пользовательский сценарий
 
-1. User sends a meeting recording to the Telegram bot.
-2. Bot validates the file type and size.
-3. Bot uploads audio/video to AssemblyAI and waits for diarized transcription.
-4. Bot optionally uses GPT to infer speaker names or roles from transcript context.
-5. Bot optionally builds a structured meeting summary.
-6. User receives a `.txt` transcript file and a concise summary message.
+1. Пользователь отправляет запись встречи в Telegram-бота.
+2. Бот проверяет тип и размер файла.
+3. Бот отправляет аудио/видео в AssemblyAI и ждёт diarized transcription.
+4. Бот опционально использует GPT, чтобы вывести имена или роли спикеров из контекста.
+5. Бот опционально собирает структурированное summary встречи.
+6. Пользователь получает `.txt`-файл со стенограммой и короткое summary сообщением.
 
-## Stack
+## Стек
 
 - Python 3.11
 - aiogram 3
 - httpx
 - AssemblyAI Speech-to-Text API
-- OpenAI API for speaker mapping and summaries
+- OpenAI API для speaker mapping и summary
 - Docker / Docker Compose
-- Telegram Local Bot API for large-file transport
+- Telegram Local Bot API для больших файлов
 
-## Setup
+## Запуск
 
 ```bash
 python -m venv .venv
@@ -42,7 +42,7 @@ cp .env.example .env
 python main.py
 ```
 
-Required environment variables:
+Нужные переменные окружения:
 
 ```env
 TELEGRAM_BOT_TOKEN=your_telegram_bot_token
@@ -51,11 +51,11 @@ OPENAI_API_KEY=your_openai_api_key_optional
 OWNER_ID=your_telegram_user_id
 ```
 
-`OPENAI_API_KEY` is optional. Without it, the bot can still return transcripts, but GPT speaker mapping and meeting summaries are disabled.
+`OPENAI_API_KEY` опционален. Без него бот может возвращать стенограммы, но GPT speaker mapping и meeting summary будут отключены.
 
 ## Docker
 
-Cloud Bot API mode:
+Режим Cloud Bot API:
 
 ```bash
 docker build -t meeting-secretary .
@@ -66,35 +66,35 @@ docker run -d \
   meeting-secretary
 ```
 
-Local Bot API mode for files larger than the cloud Bot API download limit:
+Режим Local Bot API для файлов больше лимита скачивания Cloud Bot API:
 
 ```bash
 cp .env.vps.example .env.vps
 docker compose up -d --build
 ```
 
-See [docs/local-bot-api.md](docs/local-bot-api.md).
+Подробности: [docs/local-bot-api.md](docs/local-bot-api.md).
 
-## Project Structure
+## Структура
 
 ```text
-main.py                         entrypoint
-meeting_secretary/bot.py        Telegram handlers and processing workflow
-meeting_secretary/config.py     environment settings
+main.py                         точка входа
+meeting_secretary/bot.py        Telegram handlers и processing workflow
+meeting_secretary/config.py     настройки окружения
 meeting_secretary/transcription.py
 meeting_secretary/speaker_mapping.py
 meeting_secretary/meeting_summary.py
 meeting_secretary/media_metadata.py
-docs/local-bot-api.md           local Bot API notes
+docs/local-bot-api.md           заметки по Local Bot API
 ```
 
-## Safety Notes
+## Безопасность
 
-- Do not commit `.env`, `.env.vps`, real recordings, private transcripts or logs.
-- Use synthetic or public-domain demo recordings only.
-- Speaker mapping can be uncertain; low-confidence mappings should remain neutral.
-- Summaries are convenience outputs and should be checked against the transcript for important decisions.
+- Не коммитить `.env`, `.env.vps`, реальные записи, приватные стенограммы и логи.
+- Использовать только синтетические или public-domain demo recordings.
+- Speaker mapping может быть неточным; низкая уверенность должна оставлять нейтральные метки.
+- Summary — вспомогательный output, важные решения нужно сверять со стенограммой.
 
-## Portfolio Note
+## Портфельная рамка
 
-This project is presented as an AI-assisted automation prototype. The focus is workflow design, prompt/control decisions, large-file constraints, API integration and practical UX, not a claim of hand-written production backend engineering.
+Проект представлен как прототип автоматизации, собранный с помощью AI-assisted development. Фокус: проектирование пользовательского сценария, промптов и контрольных решений, ограничения больших файлов, интеграция API и практичный UX, а не заявление о ручной production backend-разработке.

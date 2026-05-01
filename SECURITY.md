@@ -1,4 +1,3 @@
-# Security
+# Безопасность
 
-Do not commit API keys, bot tokens, private meeting recordings, private transcripts, speaker names from real meetings, logs, VPS credentials, or production `.env` files.
-
+Не коммитить API-ключи, токены бота, приватные записи встреч, приватные стенограммы, имена реальных участников, логи, VPS-доступы и production `.env` файлы.
