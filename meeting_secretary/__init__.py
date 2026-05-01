@@ -1,0 +1,1 @@
+"""Meeting secretary bot package."""
