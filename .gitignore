@@ -1,0 +1,15 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+!.env.vps.example
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.log
+*.txt
+recordings/
+transcripts/
+tmp/
+
